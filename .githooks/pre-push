@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+#  run tests prior to pushing
+
+  # test it :: run tests before commit (silently)
+  mix test 2>&1 >/dev/null
+  TEST_RES=$?
+  if [ $TEST_RES -ne 0 ]
+  then
+  echo ""
+  echo "☆ ==================================== ☆"
+  echo "☆  Some tests are failing.             ☆" >&2
+  echo "☆  Please fix them before committing.  ☆" >&2
+  echo "☆ ==================================== ☆"
+  echo ""
+  exit $TEST_RES
+  fi
+  echo ""
+  echo "★ ============================== ★"
+  echo "★   Tests passed successfully.   ★"
+  echo "★ ============================== ★"
+  echo ""
+
+  # Finished
+  exit 0
