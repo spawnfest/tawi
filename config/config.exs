@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :techevents,
-  ecto_repos: [Techevents.Repo]
+  ecto_repos: [Techevents.Repo],
+  eventbrite_token: "still invalid"
 
 # Configures the endpoint
 config :techevents, TecheventsWeb.Endpoint,
