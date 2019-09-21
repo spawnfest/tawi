@@ -65,7 +65,7 @@ format: mix format ## Run formatting tools on the code
 
 
 init:
-	chmod a+x -R .githooks
+	chmod -R a+x  .githooks
 	git config core.hooksPath .githooks
 
 make_lint_file_executable:
