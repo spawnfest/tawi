@@ -12,6 +12,22 @@ defmodule Techevents.Fetchers.Eventbrite do
   plug Tesla.Middleware.JSON
 
   def search_events do
-    get("/events/search/")
+    {:ok, %Tesla.Env{body: body}} = get("/events/search/?expand=venue&location.address=kenya")
+    body["events"] |> get_details()
+  end
+
+  def get_details(events) when is_list(events) do
+    Enum.map(events, fn event -> get_details(event) end)
+  end
+
+  def get_details(event) do
+    %{
+      description: event["description"]["text"],
+      url: event["url"],
+      venue: event["venue"]["address"]["localized_address_display"],
+      name: event["name"]["text"],
+      start: event["start"]["utc"],
+      end_date: event["end"]["utc"]
+    }
   end
 end
